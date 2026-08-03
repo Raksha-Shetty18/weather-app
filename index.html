@@ -6,6 +6,8 @@
     <title>WeatherNow</title>
 
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="ui.css">
+    <link rel="stylesheet" href="hourly.css">
   </head>
   <body>
     <div class="weather-video">
@@ -14,7 +16,17 @@
 
     <div class="container">
       <h1>🌦 WeatherNow</h1>
+       <div class="date-time">
 
+    <h2 id="currentTime">
+        --:--:--
+    </h2>
+
+    <p id="currentDate">
+        Loading...
+    </p>
+
+</div>
       <!-- Search -->
       <div class="search-box">
         <input type="text" id="cityInput" placeholder="Enter city name" />
@@ -109,9 +121,26 @@
 
             <p id="windDirection">--°</p>
           </div>
+          <div class="detail">
+
+    <h3>🌿 Air Quality</h3>
+
+    <p id="aqi">Loading...</p>
+
+</div>
         </div>
       </div>
+      <!-- Hourly Forecast -->
 
+<div class="hourly-section">
+
+    <h2>🕒 Next 24 Hours</h2>
+
+    <div id="hourlyContainer" class="hourly-container">
+
+    </div>
+
+</div>
       <!-- Forecast -->
       <div class="forecast">
         <h2>📅 5-Day Forecast</h2>
