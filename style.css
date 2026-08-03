@@ -37,14 +37,48 @@ body {
 ========================== */
 
 .container{
-    width:100%;
-    max-width:470px;
-    background:rgba(255,255,255,.15);
-    backdrop-filter:blur(15px);
-    border-radius:20px;
-    padding:30px;
-    box-shadow:0 15px 35px rgba(0,0,0,.3);
+
+    width:90%;
+
+    max-width:480px;
+
+    background:
+
+    linear-gradient(
+        135deg,
+        rgba(255,255,255,0.25),
+        rgba(255,255,255,0.08)
+    );
+
+
+    backdrop-filter:blur(20px);
+
+    -webkit-backdrop-filter:blur(20px);
+
+
+    border:
+
+    1px solid rgba(255,255,255,0.3);
+
+
+    border-radius:30px;
+
+
+    padding:35px;
+
+
+    box-shadow:
+
+    0 25px 50px rgba(0,0,0,0.35);
+
+
     text-align:center;
+
+
+    animation:
+
+    cardAppear 1s ease;
+
 }
 
 /* ==========================
@@ -202,7 +236,26 @@ body {
 ========================== */
 
 .weather-card{
-    margin-top:25px;
+
+    margin-top:30px;
+
+
+    padding:20px;
+
+
+    border-radius:25px;
+
+
+    background:
+
+    rgba(255,255,255,0.12);
+
+
+    border:
+
+    1px solid rgba(255,255,255,0.2);
+
+
 }
 
 .weather-card img{
@@ -210,8 +263,40 @@ body {
 }
 
 #temperature{
-    font-size:55px;
-    margin:10px 0;
+
+    font-size:65px;
+
+    font-weight:700;
+
+    margin:15px 0;
+
+
+    animation:
+
+    temperatureGlow 3s infinite alternate;
+
+}
+
+
+
+@keyframes temperatureGlow{
+
+
+    from{
+
+        text-shadow:
+        0 0 5px white;
+
+    }
+
+
+    to{
+
+        text-shadow:
+        0 0 25px white;
+
+    }
+
 }
 
 #description{
@@ -275,17 +360,45 @@ body {
 }
 
 .forecast-card{
+
     min-width:120px;
-    background:rgba(255,255,255,.15);
-    border-radius:15px;
-    padding:15px;
-    text-align:center;
-    transition:.3s;
+
+    background:
+
+    rgba(255,255,255,0.18);
+
+
+    border-radius:20px;
+
+
+    padding:18px;
+
+
+    transition:.4s;
+
+
+    border:
+
+    1px solid rgba(255,255,255,.2);
+
 }
 
+
 .forecast-card:hover{
-    transform:translateY(-5px);
+
+    transform:
+
+    translateY(-10px)
+    scale(1.05);
+
+
+    background:
+
+    rgba(255,255,255,.3);
+
 }
+
+
 
 .forecast-card img{
     width:60px;
@@ -359,5 +472,31 @@ body::after{
     background:rgba(0,0,0,0.25);
 
     z-index:-1;
+
+}
+
+@keyframes cardAppear{
+
+
+    from{
+
+        opacity:0;
+
+        transform:
+        translateY(40px)
+        scale(.95);
+
+    }
+
+
+    to{
+
+        opacity:1;
+
+        transform:
+        translateY(0)
+        scale(1);
+
+    }
 
 }
