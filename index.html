@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="ui.css">
     <link rel="stylesheet" href="hourly.css">
+    <link rel="stylesheet" href="map.css">
+    <link rel="stylesheet" href="favorites.css">
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
   </head>
   <body>
     <div class="weather-video">
@@ -31,7 +37,17 @@
       <div class="search-box">
         <input type="text" id="cityInput" placeholder="Enter city name" />
 
-        <button id="searchBtn">Search</button>
+        <button id="searchBtn">
+
+    Search
+
+</button>
+
+<button id="favoriteBtn">
+
+    ⭐
+
+</button>
       </div>
 
       <!-- Search History -->
@@ -46,6 +62,29 @@
           <!-- History buttons appear here -->
         </div>
       </div>
+      <!-- ==========================
+     Favorite Cities
+========================== -->
+
+<div class="favorites">
+
+    <div class="favorites-header">
+
+        <h3>⭐ Favorite Cities</h3>
+
+        <button id="clearFavoritesBtn">
+
+            Clear
+
+        </button>
+
+    </div>
+
+    <div id="favoritesContainer">
+
+    </div>
+
+</div>
 
       <!-- Current Location -->
       <button id="locationBtn" class="location-btn">📍 Use My Location</button>
@@ -147,8 +186,27 @@
 
         <div id="forecastContainer" class="forecast-container"></div>
       </div>
+      <!-- ==========================
+     Weather Map
+========================== -->
+
+<div class="map-section">
+
+    <h2>🗺 Weather Location</h2>
+
+    <div id="map"></div>
+
+</div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="script.js"></script>
+
+<script src="hourly.js"></script>
+
+<script src="map.js"></script>
+
+<script src="favorites.js"></script>
   </body>
 </html>

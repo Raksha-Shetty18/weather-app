@@ -77,34 +77,76 @@ body {
    Search
 ========================== */
 
-.search-box {
-  display: flex;
-  gap: 10px;
+/* ==========================
+   Search Section
+========================== */
+
+.search-box{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    width:100%;
 }
 
-.search-box input {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  font-size: 16px;
+.search-box input{
+
+    flex:1;
+
+    min-width:0;
+
+    height:52px;
+
+    padding:0 18px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:16px;
+
 }
 
-.search-box button {
-  padding: 12px 18px;
-  border: none;
-  border-radius: 10px;
-  background: #38bdf8;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
+#searchBtn{
+
+    width:110px;
+
+    height:52px;
+
+    background:#3498db;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:12px;
+
 }
 
-.search-box button:hover {
-  background: #0ea5e9;
+#favoriteBtn{
+
+    width:52px;
+
+    height:52px;
+
+    flex-shrink:0;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#FFD54F;
+
+    font-size:22px;
+
+    cursor:pointer;
+
 }
 
+#favoriteBtn:hover {
+    background: #FFC107;
+    transform: scale(1.05);
+}
 /* ==========================
    Search History
 ========================== */
