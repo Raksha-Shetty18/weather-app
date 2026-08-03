@@ -12,244 +12,196 @@ const historyContainer = document.getElementById("historyContainer");
 
 let searchHistory = JSON.parse(localStorage.getItem("weatherHistory")) || [];
 
+// ==========================
+// Update Weather UI
+// ==========================
+
 function updateWeatherUI(data) {
-console.log(data.weather[0].main);
-    document.getElementById("cityName").textContent =
-        `${data.name}, ${data.sys.country}`;
+  document.getElementById("cityName").textContent =
+    `${data.name}, ${data.sys.country}`;
 
-    document.getElementById("temperature").textContent =
-        `${Math.round(data.main.temp)}°C`;
+  document.getElementById("temperature").textContent =
+    `${Math.round(data.main.temp)}°C`;
 
-    document.getElementById("description").textContent =
-        data.weather[0].description;
+  document.getElementById("description").textContent =
+    data.weather[0].description;
 
-    document.getElementById("humidity").textContent =
-        `${data.main.humidity}%`;
+  document.getElementById("humidity").textContent = `${data.main.humidity}%`;
 
-    document.getElementById("wind").textContent =
-        `${data.wind.speed} m/s`;
+  document.getElementById("wind").textContent = `${data.wind.speed} m/s`;
 
-    document.getElementById("pressure").textContent =
-        `${data.main.pressure} hPa`;
+  document.getElementById("pressure").textContent = `${data.main.pressure} hPa`;
 
-    document.getElementById("feelsLike").textContent =
-        `${Math.round(data.main.feels_like)}°C`;
+  document.getElementById("feelsLike").textContent =
+    `${Math.round(data.main.feels_like)}°C`;
 
-    document.getElementById("weatherIcon").src =
-        `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  // ==========================
+  // Extra Weather Details
+  // ==========================
 
-    document.title = `${Math.round(data.main.temp)}°C - ${data.name}`;
+  document.getElementById("sunrise").textContent = new Date(
+    data.sys.sunrise * 1000,
+  ).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
-    updateBackground(data.weather[0].main);
-    changeWeatherVideo(data.weather[0].main);
+  document.getElementById("sunset").textContent = new Date(
+    data.sys.sunset * 1000,
+  ).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  document.getElementById("visibility").textContent =
+    `${data.visibility / 1000} km`;
+
+  document.getElementById("minmax").textContent =
+    `${Math.round(data.main.temp_min)}° /
+        ${Math.round(data.main.temp_max)}°`;
+
+  document.getElementById("windDirection").textContent = `${data.wind.deg}°`;
+
+  // Weather Icon
+
+  document.getElementById("weatherIcon").src =
+    `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+  document.title = `${Math.round(data.main.temp)}°C - ${data.name}`;
+
+  updateBackground(data.weather[0].main);
+
+  changeWeatherVideo(data.weather[0].main);
 }
 
 // ==========================
-// Search History Functions
+// Search History
 // ==========================
 
 function saveHistory(city) {
+  searchHistory = searchHistory.filter(
+    (item) => item.toLowerCase() !== city.toLowerCase(),
+  );
 
-    // Remove duplicate city
-    searchHistory = searchHistory.filter(
-        item => item.toLowerCase() !== city.toLowerCase()
-    );
+  searchHistory.unshift(city);
 
-    // Add new city at beginning
-    searchHistory.unshift(city);
+  searchHistory = searchHistory.slice(0, 5);
 
-    // Keep only last 5 searches
-    searchHistory = searchHistory.slice(0, 5);
+  localStorage.setItem("weatherHistory", JSON.stringify(searchHistory));
 
-    localStorage.setItem(
-        "weatherHistory",
-        JSON.stringify(searchHistory)
-    );
-
-    displayHistory();
+  displayHistory();
 }
-
-
-// Display search history buttons
 
 function displayHistory() {
+  historyContainer.innerHTML = "";
 
-    historyContainer.innerHTML = "";
+  searchHistory.forEach((city) => {
+    const button = document.createElement("button");
 
-    searchHistory.forEach(city => {
+    button.textContent = city;
 
-        const button = document.createElement("button");
+    button.classList.add("history-btn");
 
-        button.textContent = city;
+    button.onclick = () => {
+      getWeather(city);
+    };
 
-        button.classList.add("history-btn");
-
-
-        button.addEventListener("click", () => {
-
-            getWeather(city);
-
-        });
-
-
-        historyContainer.appendChild(button);
-
-    });
-
+    historyContainer.appendChild(button);
+  });
 }
 
-
-// Clear all history
-
 function clearHistory() {
+  searchHistory = [];
 
-    searchHistory = [];
+  localStorage.removeItem("weatherHistory");
 
-    localStorage.removeItem("weatherHistory");
-
-    displayHistory();
-
+  displayHistory();
 }
 
 // ==========================
-// Get Weather By City
+// Weather By City
 // ==========================
 
 async function getWeather(city) {
+  loading.style.display = "block";
 
-    loading.style.display = "block";
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`,
+    );
 
-    try {
+    const data = await response.json();
 
-        const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
-        );
-
-
-        const data = await response.json();
-
-
-        if(data.cod != 200){
-
-            throw new Error(data.message);
-
-        }
-
-
-        updateWeatherUI(data);
-
-
-        saveHistory(data.name);
-
-
-        getForecast(data.name);
-
-
+    if (data.cod != 200) {
+      throw new Error(data.message);
     }
 
-    catch(error){
+    updateWeatherUI(data);
 
-        alert(error.message);
+    saveHistory(data.name);
 
-    }
-
-    finally{
-
-        loading.style.display = "none";
-
-    }
-
+    getForecast(data.name);
+  } catch (error) {
+    alert(error.message);
+  } finally {
+    loading.style.display = "none";
+  }
 }
 
 // ==========================
-// Get Weather By Location
+// Weather By Location
 // ==========================
 
 async function getWeatherByLocation(lat, lon) {
+  loading.style.display = "block";
 
-    loading.style.display = "block";
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`,
+    );
 
-    try {
+    const data = await response.json();
 
-        const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
-        );
-
-
-        const data = await response.json();
-
-
-        if(data.cod != 200){
-
-            throw new Error(data.message);
-
-        }
-
-
-        updateWeatherUI(data);
-
-        saveHistory(data.name);
-
-        getForecast(data.name);
-
-
+    if (data.cod != 200) {
+      throw new Error(data.message);
     }
 
-    catch(error){
+    updateWeatherUI(data);
 
-        alert(error.message);
+    saveHistory(data.name);
 
-    }
-
-    finally{
-
-        loading.style.display = "none";
-
-    }
-
+    getForecast(data.name);
+  } catch (error) {
+    alert(error.message);
+  } finally {
+    loading.style.display = "none";
+  }
 }
-
-
 
 // ==========================
 // 5 Day Forecast
 // ==========================
 
-async function getForecast(city){
+async function getForecast(city) {
+  try {
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`,
+    );
 
-    try{
+    const data = await response.json();
 
-        const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`
-        );
+    forecastContainer.innerHTML = "";
 
+    const dailyForecast = data.list.filter((item) =>
+      item.dt_txt.includes("12:00:00"),
+    );
 
-        const data = await response.json();
+    dailyForecast.forEach((item) => {
+      const day = new Date(item.dt_txt).toLocaleDateString("en-US", {
+        weekday: "short",
+      });
 
-
-        forecastContainer.innerHTML = "";
-
-
-        const dailyForecast = data.list.filter(item =>
-            item.dt_txt.includes("12:00:00")
-        );
-
-
-        dailyForecast.forEach(item => {
-
-
-            const date = new Date(item.dt_txt);
-
-
-            const day = date.toLocaleDateString(
-                "en-US",
-                {
-                    weekday:"short"
-                }
-            );
-
-
-            forecastContainer.innerHTML += `
+      forecastContainer.innerHTML += `
 
             <div class="forecast-card">
 
@@ -260,278 +212,138 @@ async function getForecast(city){
                 <p>${Math.round(item.main.temp)}°C</p>
 
                 <small>
-                    ${item.weather[0].main}
+                ${item.weather[0].main}
                 </small>
 
             </div>
 
             `;
-
-
-        });
-
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-
-
-// ==========================
-// Dynamic Background
-// ==========================
-
-function updateBackground(weather){
-
-
-    document.body.className="";
-
-
-    switch(weather){
-
-
-        case "Clear":
-
-            document.body.classList.add("sunny");
-
-            break;
-
-
-
-        case "Clouds":
-
-            document.body.classList.add("cloudy");
-
-            break;
-
-
-
-        case "Rain":
-
-        case "Drizzle":
-
-            document.body.classList.add("rainy");
-
-            break;
-
-
-
-        case "Thunderstorm":
-
-            document.body.classList.add("stormy");
-
-            break;
-
-
-
-        case "Snow":
-
-            document.body.classList.add("snowy");
-
-            break;
-
-
-
-        default:
-
-            document.body.classList.add("cloudy");
-
-    }
-
-
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // ==========================
-// Weather Background Video
+// Background Video
 // ==========================
 
-function changeWeatherVideo(weather){
+function changeWeatherVideo(weather) {
+  let videoURL = "";
 
-    let videoURL="";
+  switch (weather) {
+    case "Clear":
+      videoURL = "videos/sunny.mp4";
 
+      break;
 
-    switch(weather){
+    case "Clouds":
+      videoURL = "videos/cloud.mp4";
 
+      break;
 
-        case "Clear":
+    case "Rain":
+    case "Drizzle":
+      videoURL = "videos/rain.mp4";
 
-            videoURL="videos/sunny.mp4";
+      break;
 
-            break;
+    case "Thunderstorm":
+      videoURL = "videos/storm.mp4";
 
+      break;
 
-        case "Clouds":
+    case "Snow":
+      videoURL = "videos/snow.mp4";
 
-            videoURL="videos/cloud.mp4";
+      break;
 
-            break;
+    default:
+      videoURL = "videos/cloud.mp4";
+  }
 
+  weatherVideo.src = videoURL;
 
-        case "Rain":
+  weatherVideo.load();
 
-        case "Drizzle":
-
-            videoURL="videos/rain.mp4";
-
-            break;
-
-
-        case "Thunderstorm":
-
-            videoURL="videos/storm.mp4";
-
-            break;
-
-
-        case "Snow":
-
-            videoURL="videos/snow.mp4";
-
-            break;
-
-
-        default:
-
-            videoURL="videos/cloud.mp4";
-
-    }
-
-
-    weatherVideo.src=videoURL;
-
-    weatherVideo.load();
-
-    weatherVideo.play();
-
+  weatherVideo.play();
 }
 
 // ==========================
-// Event Listeners
+// Background Class
 // ==========================
 
+function updateBackground(weather) {
+  document.body.className = "";
 
-searchBtn.addEventListener(
-    "click",
-    ()=>{
+  switch (weather) {
+    case "Clear":
+      document.body.classList.add("sunny");
 
+      break;
 
-        const city =
-        cityInput.value.trim();
+    case "Clouds":
+      document.body.classList.add("cloudy");
 
+      break;
 
+    case "Rain":
+    case "Drizzle":
+      document.body.classList.add("rainy");
 
-        if(city === ""){
+      break;
 
-            alert("Enter city name");
+    case "Thunderstorm":
+      document.body.classList.add("stormy");
 
-            return;
+      break;
 
-        }
+    case "Snow":
+      document.body.classList.add("snowy");
 
+      break;
 
-        getWeather(city);
+    default:
+      document.body.classList.add("cloudy");
+  }
+}
 
+// ==========================
+// Events
+// ==========================
 
-        cityInput.value="";
+searchBtn.addEventListener("click", () => {
+  const city = cityInput.value.trim();
 
+  if (city === "") {
+    alert("Enter city name");
 
-    }
-);
+    return;
+  }
 
+  getWeather(city);
 
+  cityInput.value = "";
+});
 
+cityInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    searchBtn.click();
+  }
+});
 
-// Enter key search
+locationBtn.addEventListener("click", () => {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      getWeatherByLocation(position.coords.latitude, position.coords.longitude);
+    },
 
-cityInput.addEventListener(
-    "keypress",
-    (event)=>{
+    () => {
+      alert("Unable to get location");
+    },
+  );
+});
 
-
-        if(event.key==="Enter"){
-
-            searchBtn.click();
-
-        }
-
-    }
-);
-
-
-
-
-// Current location
-
-locationBtn.addEventListener(
-    "click",
-    ()=>{
-
-
-        if(!navigator.geolocation){
-
-            alert(
-            "Location not supported"
-            );
-
-            return;
-
-        }
-
-
-        navigator.geolocation.getCurrentPosition(
-
-            (position)=>{
-
-
-                const lat =
-                position.coords.latitude;
-
-
-                const lon =
-                position.coords.longitude;
-
-
-                getWeatherByLocation(
-                    lat,
-                    lon
-                );
-
-
-            },
-
-
-            ()=>{
-
-                alert(
-                "Unable to get location"
-                );
-
-            }
-
-        );
-
-
-    }
-);
-
-
-
-
-// Clear history
-
-clearHistoryBtn.addEventListener(
-    "click",
-    clearHistory
-);
-
-
-
-// Load history when page opens
+clearHistoryBtn.addEventListener("click", clearHistory);
 
 displayHistory();

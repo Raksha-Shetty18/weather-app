@@ -1,181 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WeatherNow</title>
 
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="weather-video">
-
-    <video id="weatherVideo" autoplay muted loop>
-
-      
-
-    </video>
-
-</div> 
+      <video id="weatherVideo" autoplay muted loop playsinline></video>
+    </div>
 
     <div class="container">
+      <h1>🌦 WeatherNow</h1>
 
-        <h1>🌦 WeatherNow</h1>
+      <!-- Search -->
+      <div class="search-box">
+        <input type="text" id="cityInput" placeholder="Enter city name" />
 
-        <!-- Search -->
-        <div class="search-box">
-            <input
-                type="text"
-                id="cityInput"
-                placeholder="Enter city name">
+        <button id="searchBtn">Search</button>
+      </div>
 
-            <button id="searchBtn">
-                Search
-            </button>
+      <!-- Search History -->
+      <div class="history">
+        <div class="history-header">
+          <h3>🕒 Recent Searches</h3>
+
+          <button id="clearHistoryBtn">Clear</button>
         </div>
 
-        <!-- Search History -->
-        <div class="history">
-
-            <div class="history-header">
-
-                <h3>🕒 Recent Searches</h3>
-
-                <button id="clearHistoryBtn">
-                    Clear
-                </button>
-
-            </div>
-
-            <div id="historyContainer">
-
-                <!-- History buttons appear here -->
-
-            </div>
-
+        <div id="historyContainer">
+          <!-- History buttons appear here -->
         </div>
+      </div>
 
-        <!-- Current Location -->
-        <button
-            id="locationBtn"
-            class="location-btn">
+      <!-- Current Location -->
+      <button id="locationBtn" class="location-btn">📍 Use My Location</button>
 
-            📍 Use My Location
+      <!-- Loading -->
+      <div id="loading" class="loading">
+        <div class="spinner"></div>
 
-        </button>
+        <p>Loading...</p>
+      </div>
 
-        <!-- Loading -->
-        <div
-            id="loading"
-            class="loading">
+      <!-- Weather Card -->
+      <div class="weather-card">
+        <h2 id="cityName">City Name</h2>
 
-            <div class="spinner"></div>
+        <img id="weatherIcon" src="" alt="Weather Icon" />
 
-            <p>Loading...</p>
+        <h1 id="temperature">--°C</h1>
 
+        <p id="description">Weather Description</p>
+
+        <div class="weather-details">
+          <div class="detail">
+            <h3>Humidity</h3>
+
+            <p id="humidity">--%</p>
+          </div>
+
+          <div class="detail">
+            <h3>Wind</h3>
+
+            <p id="wind">-- m/s</p>
+          </div>
+
+          <div class="detail">
+            <h3>Pressure</h3>
+
+            <p id="pressure">----</p>
+          </div>
+
+          <div class="detail">
+            <h3>Feels Like</h3>
+
+            <p id="feelsLike">--°C</p>
+          </div>
+
+          <div class="detail">
+            <h3>🌅 Sunrise</h3>
+
+            <p id="sunrise">--:--</p>
+          </div>
+
+          <div class="detail">
+            <h3>🌇 Sunset</h3>
+
+            <p id="sunset">--:--</p>
+          </div>
+
+          <div class="detail">
+            <h3>👁 Visibility</h3>
+
+            <p id="visibility">-- km</p>
+          </div>
+
+          <div class="detail">
+            <h3>🌡 Min / Max</h3>
+
+            <p id="minmax">--° / --°</p>
+          </div>
+
+          <div class="detail">
+            <h3>🧭 Wind Direction</h3>
+
+            <p id="windDirection">--°</p>
+          </div>
         </div>
+      </div>
 
-        <!-- Weather Card -->
-        <div class="weather-card">
+      <!-- Forecast -->
+      <div class="forecast">
+        <h2>📅 5-Day Forecast</h2>
 
-            <h2 id="cityName">
-
-                City Name
-
-            </h2>
-
-            <img
-                id="weatherIcon"
-                src=""
-                alt="Weather Icon">
-
-            <h1 id="temperature">
-
-                --°C
-
-            </h1>
-
-            <p id="description">
-
-                Weather Description
-
-            </p>
-
-            <div class="weather-details">
-
-                <div class="detail">
-
-                    <h3>Humidity</h3>
-
-                    <p id="humidity">
-
-                        --%
-
-                    </p>
-
-                </div>
-
-                <div class="detail">
-
-                    <h3>Wind</h3>
-
-                    <p id="wind">
-
-                        -- m/s
-
-                    </p>
-
-                </div>
-
-                <div class="detail">
-
-                    <h3>Pressure</h3>
-
-                    <p id="pressure">
-
-                        ----
-
-                    </p>
-
-                </div>
-
-                <div class="detail">
-
-                    <h3>Feels Like</h3>
-
-                    <p id="feelsLike">
-
-                        --°C
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- Forecast -->
-        <div class="forecast">
-
-            <h2>
-
-                📅 5-Day Forecast
-
-            </h2>
-
-            <div
-                id="forecastContainer"
-                class="forecast-container">
-
-            </div>
-
-        </div>
-
+        <div id="forecastContainer" class="forecast-container"></div>
+      </div>
     </div>
 
     <script src="script.js"></script>
-
-</body>
-
+  </body>
 </html>
