@@ -4,6 +4,7 @@ const cityInput = document.getElementById("cityInput");
 const searchBtn = document.getElementById("searchBtn");
 const locationBtn = document.getElementById("locationBtn");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+const weatherVideo = document.getElementById("weatherVideo");
 
 const loading = document.getElementById("loading");
 const forecastContainer = document.getElementById("forecastContainer");
@@ -12,7 +13,7 @@ const historyContainer = document.getElementById("historyContainer");
 let searchHistory = JSON.parse(localStorage.getItem("weatherHistory")) || [];
 
 function updateWeatherUI(data) {
-
+console.log(data.weather[0].main);
     document.getElementById("cityName").textContent =
         `${data.name}, ${data.sys.country}`;
 
@@ -40,6 +41,7 @@ function updateWeatherUI(data) {
     document.title = `${Math.round(data.main.temp)}°C - ${data.name}`;
 
     updateBackground(data.weather[0].main);
+    changeWeatherVideo(data.weather[0].main);
 }
 
 // ==========================
@@ -288,13 +290,15 @@ async function getForecast(city){
 function updateBackground(weather){
 
 
+    document.body.className="";
+
+
     switch(weather){
 
 
         case "Clear":
 
-            document.body.style.background =
-            "linear-gradient(135deg,#4facfe,#00f2fe)";
+            document.body.classList.add("sunny");
 
             break;
 
@@ -302,8 +306,7 @@ function updateBackground(weather){
 
         case "Clouds":
 
-            document.body.style.background =
-            "linear-gradient(135deg,#757f9a,#d7dde8)";
+            document.body.classList.add("cloudy");
 
             break;
 
@@ -313,8 +316,7 @@ function updateBackground(weather){
 
         case "Drizzle":
 
-            document.body.style.background =
-            "linear-gradient(135deg,#314755,#26a0da)";
+            document.body.classList.add("rainy");
 
             break;
 
@@ -322,8 +324,7 @@ function updateBackground(weather){
 
         case "Thunderstorm":
 
-            document.body.style.background =
-            "linear-gradient(135deg,#232526,#414345)";
+            document.body.classList.add("stormy");
 
             break;
 
@@ -331,21 +332,7 @@ function updateBackground(weather){
 
         case "Snow":
 
-            document.body.style.background =
-            "linear-gradient(135deg,#e6dada,#274046)";
-
-            break;
-
-
-
-        case "Mist":
-
-        case "Fog":
-
-        case "Haze":
-
-            document.body.style.background =
-            "linear-gradient(135deg,#606c88,#3f4c6b)";
+            document.body.classList.add("snowy");
 
             break;
 
@@ -353,14 +340,76 @@ function updateBackground(weather){
 
         default:
 
-            document.body.style.background =
-            "linear-gradient(135deg,#1e3a8a,#0f172a)";
+            document.body.classList.add("cloudy");
 
     }
 
+
 }
 
+// ==========================
+// Weather Background Video
+// ==========================
 
+function changeWeatherVideo(weather){
+
+    let videoURL="";
+
+
+    switch(weather){
+
+
+        case "Clear":
+
+            videoURL="videos/sunny.mp4";
+
+            break;
+
+
+        case "Clouds":
+
+            videoURL="videos/cloud.mp4";
+
+            break;
+
+
+        case "Rain":
+
+        case "Drizzle":
+
+            videoURL="videos/rain.mp4";
+
+            break;
+
+
+        case "Thunderstorm":
+
+            videoURL="videos/storm.mp4";
+
+            break;
+
+
+        case "Snow":
+
+            videoURL="videos/snow.mp4";
+
+            break;
+
+
+        default:
+
+            videoURL="videos/cloud.mp4";
+
+    }
+
+
+    weatherVideo.src=videoURL;
+
+    weatherVideo.load();
+
+    weatherVideo.play();
+
+}
 
 // ==========================
 // Event Listeners
