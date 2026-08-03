@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherNow</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>🌦 WeatherNow</h1>
+
+        <!-- Search Section -->
+        <div class="search-box">
+            <input
+                type="text"
+                id="cityInput"
+                placeholder="Enter city name">
+
+            <button id="searchBtn">Search</button>
+        </div>
+
+        <!-- Current Location Button -->
+        <button id="locationBtn" class="location-btn">
+            📍 Use My Location
+        </button>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+
+        <!-- Current Weather Card -->
+        <div class="weather-card">
+
+            <h2 id="cityName">City Name</h2>
+
+            <img
+                id="weatherIcon"
+                src=""
+                alt="Weather Icon">
+
+            <h1 id="temperature">--°C</h1>
+
+            <p id="description">Weather Description</p>
+
+            <div class="weather-details">
+
+                <div class="detail">
+                    <h3>Humidity</h3>
+                    <p id="humidity">--%</p>
+                </div>
+
+                <div class="detail">
+                    <h3>Wind</h3>
+                    <p id="wind">-- m/s</p>
+                </div>
+
+                <div class="detail">
+                    <h3>Pressure</h3>
+                    <p id="pressure">----</p>
+                </div>
+
+                <div class="detail">
+                    <h3>Feels Like</h3>
+                    <p id="feelsLike">--°C</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 5-Day Forecast -->
+        <div class="forecast">
+
+            <h2>📅 5-Day Forecast</h2>
+
+            <div id="forecastContainer" class="forecast-container">
+
+                <!-- Forecast cards will be added here using JavaScript -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
