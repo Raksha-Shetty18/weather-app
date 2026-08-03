@@ -13,75 +13,151 @@
 
         <h1>🌦 WeatherNow</h1>
 
-        <!-- Search Section -->
+        <!-- Search -->
         <div class="search-box">
             <input
                 type="text"
                 id="cityInput"
                 placeholder="Enter city name">
 
-            <button id="searchBtn">Search</button>
+            <button id="searchBtn">
+                Search
+            </button>
         </div>
 
-        <!-- Current Location Button -->
-        <button id="locationBtn" class="location-btn">
+        <!-- Search History -->
+        <div class="history">
+
+            <div class="history-header">
+
+                <h3>🕒 Recent Searches</h3>
+
+                <button id="clearHistoryBtn">
+                    Clear
+                </button>
+
+            </div>
+
+            <div id="historyContainer">
+
+                <!-- History buttons appear here -->
+
+            </div>
+
+        </div>
+
+        <!-- Current Location -->
+        <button
+            id="locationBtn"
+            class="location-btn">
+
             📍 Use My Location
+
         </button>
 
-        <!-- Loading Spinner -->
-        <div id="loading" class="loading">
+        <!-- Loading -->
+        <div
+            id="loading"
+            class="loading">
+
             <div class="spinner"></div>
+
             <p>Loading...</p>
+
         </div>
 
-        <!-- Current Weather Card -->
+        <!-- Weather Card -->
         <div class="weather-card">
 
-            <h2 id="cityName">City Name</h2>
+            <h2 id="cityName">
+
+                City Name
+
+            </h2>
 
             <img
                 id="weatherIcon"
                 src=""
                 alt="Weather Icon">
 
-            <h1 id="temperature">--°C</h1>
+            <h1 id="temperature">
 
-            <p id="description">Weather Description</p>
+                --°C
+
+            </h1>
+
+            <p id="description">
+
+                Weather Description
+
+            </p>
 
             <div class="weather-details">
 
                 <div class="detail">
+
                     <h3>Humidity</h3>
-                    <p id="humidity">--%</p>
+
+                    <p id="humidity">
+
+                        --%
+
+                    </p>
+
                 </div>
 
                 <div class="detail">
+
                     <h3>Wind</h3>
-                    <p id="wind">-- m/s</p>
+
+                    <p id="wind">
+
+                        -- m/s
+
+                    </p>
+
                 </div>
 
                 <div class="detail">
+
                     <h3>Pressure</h3>
-                    <p id="pressure">----</p>
+
+                    <p id="pressure">
+
+                        ----
+
+                    </p>
+
                 </div>
 
                 <div class="detail">
+
                     <h3>Feels Like</h3>
-                    <p id="feelsLike">--°C</p>
+
+                    <p id="feelsLike">
+
+                        --°C
+
+                    </p>
+
                 </div>
 
             </div>
 
         </div>
 
-        <!-- 5-Day Forecast -->
+        <!-- Forecast -->
         <div class="forecast">
 
-            <h2>📅 5-Day Forecast</h2>
+            <h2>
 
-            <div id="forecastContainer" class="forecast-container">
+                📅 5-Day Forecast
 
-                <!-- Forecast cards will be added here using JavaScript -->
+            </h2>
+
+            <div
+                id="forecastContainer"
+                class="forecast-container">
 
             </div>
 

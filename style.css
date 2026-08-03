@@ -1,235 +1,306 @@
 /* ==========================
    CSS Reset
 ========================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 /* ==========================
    Body
 ========================== */
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #1e3a8a, #0f172a);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: white;
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:linear-gradient(135deg,#1e3a8a,#0f172a);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    color:white;
+    transition:0.5s;
+    padding:20px;
 }
 
 /* ==========================
    Main Container
 ========================== */
-.container {
-    width: 90%;
-    max-width: 450px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(15px);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    text-align: center;
+
+.container{
+    width:100%;
+    max-width:470px;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 15px 35px rgba(0,0,0,.3);
+    text-align:center;
 }
 
 /* ==========================
    Title
 ========================== */
-.container h1 {
-    margin-bottom: 20px;
+
+.container h1{
+    margin-bottom:20px;
+    font-size:32px;
 }
 
 /* ==========================
-   Search Section
+   Search
 ========================== */
-.search-box {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
+
+.search-box{
+    display:flex;
+    gap:10px;
 }
 
-.search-box input {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    outline: none;
+.search-box input{
+    flex:1;
+    padding:12px;
+    border:none;
+    outline:none;
+    border-radius:10px;
+    font-size:16px;
 }
 
-.search-box button {
-    padding: 12px 18px;
-    border: none;
-    border-radius: 10px;
-    background: #38bdf8;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.3s;
+.search-box button{
+    padding:12px 18px;
+    border:none;
+    border-radius:10px;
+    background:#38bdf8;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
 }
 
-.search-box button:hover {
-    background: #0ea5e9;
+.search-box button:hover{
+    background:#0ea5e9;
+}
+
+/* ==========================
+   Search History
+========================== */
+
+.history{
+    margin-top:20px;
+    text-align:left;
+}
+
+.history-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+.history-header h3{
+    font-size:18px;
+}
+
+#clearHistoryBtn{
+    border:none;
+    background:#ef4444;
+    color:white;
+    padding:6px 12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+#clearHistoryBtn:hover{
+    background:#dc2626;
+}
+
+#historyContainer{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.history-btn{
+    background:rgba(255,255,255,.18);
+    border:none;
+    color:white;
+    padding:8px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.history-btn:hover{
+    background:#38bdf8;
+}
+
+/* ==========================
+   Location Button
+========================== */
+
+.location-btn{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#10b981;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+    font-size:16px;
+}
+
+.location-btn:hover{
+    background:#059669;
+}
+
+/* ==========================
+   Loading
+========================== */
+
+.loading{
+    display:none;
+    margin:20px 0;
+}
+
+.spinner{
+    width:45px;
+    height:45px;
+    border:5px solid rgba(255,255,255,.3);
+    border-top:5px solid #38bdf8;
+    border-radius:50%;
+    margin:auto;
+    animation:spin 1s linear infinite;
+}
+
+.loading p{
+    margin-top:10px;
+}
+
+@keyframes spin{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
 }
 
 /* ==========================
    Weather Card
 ========================== */
-.weather-card {
-    margin-top: 20px;
+
+.weather-card{
+    margin-top:25px;
 }
 
-.weather-card img {
-    width: 100px;
-    height: 100px;
+.weather-card img{
+    width:100px;
 }
 
-#temperature {
-    font-size: 50px;
-    margin: 10px 0;
+#temperature{
+    font-size:55px;
+    margin:10px 0;
 }
 
-#description {
-    font-size: 18px;
-    margin-bottom: 20px;
-    text-transform: capitalize;
-}
-
-/* ==========================
-   Weather Details
-========================== */
-.weather-details {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.detail {
-    background: rgba(255,255,255,0.15);
-    padding: 15px;
-    border-radius: 12px;
-}
-
-.detail h3 {
-    font-size: 15px;
-    margin-bottom: 8px;
-}
-
-.detail p {
-    font-size: 18px;
-    font-weight: bold;
+#description{
+    text-transform:capitalize;
+    margin-bottom:20px;
 }
 
 /* ==========================
-   Loading Spinner
+   Details
 ========================== */
 
-.loading {
-    display: none;
-    margin: 20px 0;
-    text-align: center;
+.weather-details{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
 }
 
-.spinner {
-    width: 45px;
-    height: 45px;
-    border: 5px solid rgba(255,255,255,0.3);
-    border-top: 5px solid #38bdf8;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin: auto;
-    margin-bottom: 10px;
+.detail{
+    background:rgba(255,255,255,.15);
+    border-radius:12px;
+    padding:15px;
 }
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
+.detail h3{
+    margin-bottom:8px;
+    font-size:15px;
+}
+
+.detail p{
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* ==========================
+   Forecast
+========================== */
+
+.forecast{
+    margin-top:35px;
+}
+
+.forecast h2{
+    margin-bottom:20px;
+}
+
+.forecast-container{
+    display:flex;
+    gap:15px;
+    overflow-x:auto;
+    padding-bottom:10px;
+    scrollbar-width:thin;
+}
+
+.forecast-container::-webkit-scrollbar{
+    height:8px;
+}
+
+.forecast-container::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.3);
+    border-radius:20px;
+}
+
+.forecast-card{
+    min-width:120px;
+    background:rgba(255,255,255,.15);
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+    transition:.3s;
+}
+
+.forecast-card:hover{
+    transform:translateY(-5px);
+}
+
+.forecast-card img{
+    width:60px;
+}
+
+.forecast-card p{
+    margin:10px 0;
+    font-size:22px;
+    font-weight:bold;
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media(max-width:500px){
+
+    .search-box{
+        flex-direction:column;
     }
-    to {
-        transform: rotate(360deg);
+
+    .search-box button{
+        width:100%;
     }
-}
 
-.location-btn {
-    margin-top: 10px;
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background: #10b981;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.location-btn:hover {
-    background: #059669;
-}
-
-/* ==========================
-   Forecast Section
-========================== */
-
-.forecast {
-    margin-top: 30px;
-    text-align: left;
-}
-
-.forecast h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.forecast-container {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    scrollbar-width: thin;
-}
-
-.forecast-container::-webkit-scrollbar {
-    height: 8px;
-}
-
-.forecast-container::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.4);
-    border-radius: 10px;
-}
-
-.forecast-card {
-    min-width: 110px;
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 15px;
-    text-align: center;
-    transition: 0.3s;
-}
-
-.forecast-card:hover {
-    transform: translateY(-5px);
-}
-
-.forecast-card h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-}
-
-.forecast-card img {
-    width: 60px;
-    height: 60px;
-}
-
-.forecast-card p {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-.forecast-card small {
-    font-size: 14px;
 }
