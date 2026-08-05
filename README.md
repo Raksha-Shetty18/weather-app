@@ -6,9 +6,13 @@ A modern and responsive Weather Dashboard built using **HTML, CSS, and JavaScrip
 ## 🌐 Live Demo
 
 **Website:** https://raksha-shetty18.github.io/weather-app/
+
+## 📂 GitHub Repository
+
+https://github.com/raksha-shetty18/weather-app
 ## 📸 Preview
 
-> Screenshots
+> Screenshotsgit
 ### Home Dashboard
 
 ![Home](screenshots/home.png)
