@@ -3,7 +3,9 @@
 A modern and responsive Weather Dashboard built using **HTML, CSS, and JavaScript**. WeatherNow provides real-time weather information, hourly forecasts, 5-day forecasts, air quality, weather maps, favorite cities, and search history using the OpenWeather API.
 
 ---
+## 🌐 Live Demo
 
+**Website:** https://raksha-shetty18.github.io/weather-app/
 ## 📸 Preview
 
 > Screenshots
