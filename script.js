@@ -65,8 +65,16 @@ function updateWeatherUI(data) {
 
   // Weather Icon
 
-  document.getElementById("weatherIcon").src =
+  const weatherIcon = document.getElementById("weatherIcon");
+
+console.log(weatherIcon);
+
+if (weatherIcon) {
+
+    weatherIcon.src =
     `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+
+}
 
   document.title = `${Math.round(data.main.temp)}°C - ${data.name}`;
   currentCity = data.name;

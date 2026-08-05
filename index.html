@@ -2,211 +2,255 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WeatherNow</title>
 
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="ui.css">
-    <link rel="stylesheet" href="hourly.css">
-    <link rel="stylesheet" href="map.css">
-    <link rel="stylesheet" href="favorites.css">
+    <title>WeatherNow Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   </head>
+
   <body>
-    <div class="weather-video">
-      <video id="weatherVideo" autoplay muted loop playsinline></video>
-    </div>
+    <video id="weatherVideo" autoplay muted loop playsinline>
+      <source src="videos/cloud.mp4" type="video/mp4" />
+    </video>
+    <div class="app">
+      <!-- ================================================= -->
+      <!-- TOP BAR -->
+      <!-- ================================================= -->
 
-    <div class="container">
-      <h1>🌦 WeatherNow</h1>
-       <div class="date-time">
+      <header class="topbar">
+        <div class="logo">
+          🌦
 
-    <h2 id="currentTime">
-        --:--:--
-    </h2>
+          <span>WeatherNow</span>
+        </div>
+        <p class="tagline">Live Weather • Air Quality • Forecast</p>
 
-    <p id="currentDate">
-        Loading...
-    </p>
+        <div class="header-right">
+          <div class="header-time">
+            <div id="currentTime">--:--</div>
 
-</div>
-      <!-- Search -->
-      <div class="search-box">
-        <input type="text" id="cityInput" placeholder="Enter city name" />
+            <div id="currentDate">Loading...</div>
+          </div>
+        </div>
+      </header>
 
-        <button id="searchBtn">
+      <!-- ================================================= -->
+      <!-- DASHBOARD -->
+      <!-- ================================================= -->
 
-    Search
+      <section class="dashboard">
+        <!-- ================= LEFT ================= -->
 
-</button>
+        <div class="left-panel">
+          <div class="card hero-card">
+            <div class="weather-icon-wrapper">
+              <img
+                id="weatherIcon"
+                src="https://openweathermap.org/img/wn/01d@2x.png"
+                alt="Weather Icon"
+              />
+            </div>
 
-<button id="favoriteBtn">
+            <h1 id="temperature">0°C</h1>
 
-    ⭐
+            <h2 id="cityName">Search a City</h2>
 
-</button>
-      </div>
+            <p id="description">Waiting for weather data...</p>
 
-      <!-- Search History -->
-      <div class="history">
-        <div class="history-header">
-          <h3>🕒 Recent Searches</h3>
+            <div class="feels">
+              Feels like
 
-          <button id="clearHistoryBtn">Clear</button>
+              <span id="feelsLike"> --°C </span>
+            </div>
+
+            <div class="weather-story">
+              <strong>Today's Atmosphere</strong>
+
+              <br /><br />
+
+              Stay prepared with real-time weather, air quality and forecast
+              updates.
+            </div>
+          </div>
         </div>
 
-        <div id="historyContainer">
-          <!-- History buttons appear here -->
+        <!-- ================= RIGHT ================= -->
+
+        <div class="right-panel">
+          <!-- SEARCH -->
+
+          <div class="card search-card">
+            <h2>🔍 Search Weather</h2>
+
+            <div class="search-box">
+              <input id="cityInput" type="text" placeholder="Enter city name" />
+
+              <button id="searchBtn">Search</button>
+
+              <button id="locationBtn">📍</button>
+
+              <button id="favoriteBtn">⭐</button>
+            </div>
+          </div>
+
+          <!-- HIGHLIGHTS -->
+
+          <div class="card">
+            <h2>📊 Today's Highlights</h2>
+
+            <div class="highlight-grid">
+              <div class="weather-tile">
+                <h3>💧 Humidity</h3>
+
+                <p id="humidity">--</p>
+              </div>
+              <div class="weather-tile">
+                <h3>🌿 Air Quality</h3>
+
+                <p id="aqi">--</p>
+              </div>
+              <div class="weather-tile">
+                <h3>🌬 Wind</h3>
+
+                <p id="wind">--</p>
+              </div>
+
+              <div class="weather-tile">
+                <h3>🔽 Pressure</h3>
+
+                <p id="pressure">--</p>
+              </div>
+
+              <div class="weather-tile">
+                <h3>👁 Visibility</h3>
+
+                <p id="visibility">--</p>
+              </div>
+
+              <div class="weather-tile">
+                <h3>🌅 Sunrise</h3>
+
+                <p id="sunrise">--</p>
+              </div>
+
+              <div class="weather-tile">
+                <h3>🌇 Sunset</h3>
+
+                <p id="sunset">--</p>
+              </div>
+
+              <div class="weather-tile">
+                <h3>🌡 Min / Max</h3>
+
+                <p id="minmax">--</p>
+              </div>
+
+              <div class="weather-tile">
+                <h3>🧭 Wind Direction</h3>
+
+                <p id="windDirection">--</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- ==========================
-     Favorite Cities
-========================== -->
+      </section>
 
-<div class="favorites">
+      <!-- ================================================= -->
+      <!-- HOURLY -->
+      <!-- ================================================= -->
 
-    <div class="favorites-header">
-
-        <h3>⭐ Favorite Cities</h3>
-
-        <button id="clearFavoritesBtn">
-
-            Clear
-
-        </button>
-
-    </div>
-
-    <div id="favoritesContainer">
-
-    </div>
-
-</div>
-
-      <!-- Current Location -->
-      <button id="locationBtn" class="location-btn">📍 Use My Location</button>
-
-      <!-- Loading -->
-      <div id="loading" class="loading">
-        <div class="spinner"></div>
-
-        <p>Loading...</p>
-      </div>
-
-      <!-- Weather Card -->
-      <div class="weather-card">
-        <h2 id="cityName">City Name</h2>
-
-        <img id="weatherIcon" src="" alt="Weather Icon" />
-
-        <h1 id="temperature">--°C</h1>
-
-        <p id="description">Weather Description</p>
-
-        <div class="weather-details">
-          <div class="detail">
-            <h3>Humidity</h3>
-
-            <p id="humidity">--%</p>
-          </div>
-
-          <div class="detail">
-            <h3>Wind</h3>
-
-            <p id="wind">-- m/s</p>
-          </div>
-
-          <div class="detail">
-            <h3>Pressure</h3>
-
-            <p id="pressure">----</p>
-          </div>
-
-          <div class="detail">
-            <h3>Feels Like</h3>
-
-            <p id="feelsLike">--°C</p>
-          </div>
-
-          <div class="detail">
-            <h3>🌅 Sunrise</h3>
-
-            <p id="sunrise">--:--</p>
-          </div>
-
-          <div class="detail">
-            <h3>🌇 Sunset</h3>
-
-            <p id="sunset">--:--</p>
-          </div>
-
-          <div class="detail">
-            <h3>👁 Visibility</h3>
-
-            <p id="visibility">-- km</p>
-          </div>
-
-          <div class="detail">
-            <h3>🌡 Min / Max</h3>
-
-            <p id="minmax">--° / --°</p>
-          </div>
-
-          <div class="detail">
-            <h3>🧭 Wind Direction</h3>
-
-            <p id="windDirection">--°</p>
-          </div>
-          <div class="detail">
-
-    <h3>🌿 Air Quality</h3>
-
-    <p id="aqi">Loading...</p>
-
-</div>
+      <section class="card section-card">
+        <div class="section-title">
+          <h2>⏰ Hourly Journey</h2>
         </div>
-      </div>
-      <!-- Hourly Forecast -->
 
-<div class="hourly-section">
+        <div id="hourlyContainer"></div>
+      </section>
 
-    <h2>🕒 Next 24 Hours</h2>
+      <!-- ================================================= -->
+      <!-- FORECAST -->
+      <!-- ================================================= -->
 
-    <div id="hourlyContainer" class="hourly-container">
+      <section class="card section-card">
+        <div class="section-title">
+          <h2>🌤 5 Day Forecast</h2>
+        </div>
 
+        <div id="forecastContainer"></div>
+      </section>
+
+      <!-- ================================================= -->
+      <!-- WEATHER MAP -->
+      <!-- ================================================= -->
+
+      <section class="card section-card">
+        <div class="section-title">
+          <h2>🗺️ Interactive Weather Map</h2>
+        </div>
+
+        <div id="map"></div>
+      </section>
+
+      <!-- ================================================= -->
+      <!-- BOTTOM SECTION -->
+      <!-- ================================================= -->
+
+      <section class="bottom-grid">
+        <!-- ================= Favorites ================= -->
+
+        <div class="card">
+          <div class="section-title">
+            <h2>⭐ Your Favorite Cities</h2>
+            <button id="clearFavoritesBtn">Clear</button>
+          </div>
+
+          <div id="favoritesContainer"></div>
+        </div>
+
+        <!-- ================= History ================= -->
+
+        <div class="card">
+          <div class="section-title">
+            <h2>🕘 Search History</h2>
+
+            <button id="clearHistoryBtn">Clear</button>
+          </div>
+
+          <div id="historyContainer"></div>
+        </div>
+      </section>
     </div>
 
-</div>
-      <!-- Forecast -->
-      <div class="forecast">
-        <h2>📅 5-Day Forecast</h2>
+    <!-- ================= Loading ================= -->
 
-        <div id="forecastContainer" class="forecast-container"></div>
-      </div>
-      <!-- ==========================
-     Weather Map
-========================== -->
+    <div id="loading">Loading...</div>
+    <footer class="footer">
+      Designed & Developed by <strong>Raksha</strong> © 2026
+    </footer>
 
-<div class="map-section">
+    <!-- ================= Scripts ================= -->
 
-    <h2>🗺 Weather Location</h2>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <div id="map"></div>
+    <script src="script.js"></script>
 
-</div>
-    </div>
+    <script src="hourly.js"></script>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="favorites.js"></script>
 
-<script src="script.js"></script>
-
-<script src="hourly.js"></script>
-
-<script src="map.js"></script>
-
-<script src="favorites.js"></script>
+    <script src="map.js"></script>
   </body>
 </html>
